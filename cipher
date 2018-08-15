@@ -1,0 +1,20 @@
+#cipher script for creating, quering nodes
+
+# three nodes are codes with label user with id property
+
+create (:user{id:'one'}), (:user{id:'two'}), (:user{id:'three'})
+
+#adding unique constraint to property id
+
+CREATE CONSTRAINT ON (a:user) ASSERT a.id IS UNIQUE
+
+#adding relationships with nodes
+
+match (a:user{id:'one'}),(b:user{id:'two'}) create (a)-[:follows]->(b)
+match (a:user{id:'one'}),(b:user{id:'two'}) create (b)-[:follows]->(a)
+match (a:user{id:'one'}),(b:user{id:'three'}) create (a)-[:follows]->(b)
+match (a:user{id:'one'}),(b:user{id:'three'}) create (b)-[:follows]->(a)
+match (a:user{id:'two'}),(b:user{id:'three'}) create (a)-[:follows]->(b)
+
+#as a result three nodes and five relations are created
+
