@@ -23,3 +23,11 @@ match (a:user{id:'two'}),(b:user{id:'three'}) create (a)-[:follows]->(b)
 match (a:user})-[relation1:follows]->(b:user)-[relation2:follows]->(a) return count(relation1)
 
 #above query will result answer 4 
+
+# For example a follows b and b follows a, if above query is executed it will return two pairs (a,b) and (b,a).
+# To avoid above situation following condition is to be added in above query
+
+match (a:user})-[relation1:follows]->(b:user)-[relation2:follows]->(a) where a.id < b.id return count(relation1)
+
+# This query result answer 2
+# This query also avoid self referencing case like a follows a. i.e (a,a) is not returned by query
