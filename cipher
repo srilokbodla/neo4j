@@ -8,7 +8,7 @@ create (:user{id:'one'}), (:user{id:'two'}), (:user{id:'three'})
 
 CREATE CONSTRAINT ON (a:user) ASSERT a.id IS UNIQUE
 
-#adding relationships with nodes
+#adding 'follows'  relationships with nodes
 
 match (a:user{id:'one'}),(b:user{id:'two'}) create (a)-[:follows]->(b)
 match (a:user{id:'one'}),(b:user{id:'two'}) create (b)-[:follows]->(a)
@@ -16,5 +16,10 @@ match (a:user{id:'one'}),(b:user{id:'three'}) create (a)-[:follows]->(b)
 match (a:user{id:'one'}),(b:user{id:'three'}) create (b)-[:follows]->(a)
 match (a:user{id:'two'}),(b:user{id:'three'}) create (a)-[:follows]->(b)
 
-#as a result three nodes and five relations are created
+# as a result three nodes and five relations are created
 
+# count no.of pairs of users such that two users in a pair follows each other
+
+match (a:user})-[relation1:follows]->(b:user)-[relation2:follows]->(a) return count(relation1)
+
+#above query will result answer 4 
