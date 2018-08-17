@@ -31,3 +31,13 @@ match (a:user})-[relation1:follows]->(b:user)-[relation2:follows]->(a) where a.i
 
 # This query result answer 2
 # This query also avoid self referencing case like a follows a. i.e (a,a) is not returned by query
+
+# Let's make graph big and addnew label
+
+create (:developer{id:'one'}), (:developer{id:'two'}), (:developer{id:'three'})
+
+# Add relation to new nodes
+
+match (a:developer{id:'one'}),(b:user{id:'one'}) create (a)-[:follows]->(b)
+match (a:developer{id:'two'}),(b:developer{id:'one'}) create (a)-[:follows]->(b)
+match (a:developer{id:'three'}),(b:developer{id:'two'}) create (a)-[:follows]->(b)
