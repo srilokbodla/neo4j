@@ -45,3 +45,9 @@ match (a:developer{id:'three'}),(b:developer{id:'two'}) create (a)-[:follows]->(
 # Query to count all nodes related to node user with id-one till depth 3 (i.e., a->b->c->d a can refered to d and a is depth 3 from d)
 
 match (a)-[*3]->(:user{id:'one'}) return count(a)
+
+# For to count all node with depth range 10
+
+match (a)-[*10]->(user{id:'one'}) return a
+
+
