@@ -50,4 +50,6 @@ match (a)-[*3]->(:user{id:'one'}) return count(a)
 
 match (a)-[*10]->(user{id:'one'}) return a
 
+# We can use with keyword to carete alias
 
+match (n) with n return n.id
